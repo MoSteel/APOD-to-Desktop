@@ -15,7 +15,6 @@ namespace APOD_to_Desktop
             // Replace all html breaks for line seperators.
             htmlCode = htmlCode.Replace("<br>", "\r\n");
 
-            Console.WriteLine("Writing test.txt to " + AppDomain.CurrentDomain.BaseDirectory.ToString());
             using (StreamWriter writer = new StreamWriter("test.txt"))
             {
                 writer.Write(htmlCode);
