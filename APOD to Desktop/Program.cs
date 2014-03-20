@@ -57,7 +57,7 @@ namespace APOD_to_Desktop
                     // Create a new task definition and assign properties
                     TaskDefinition td = ts.NewTask();
                     td.RegistrationInfo.Description = "Retrieve the APOD and set the desktop wallpaper to it.";
-                    td.Principal.UserId = "SYSTEM";
+                    td.Principal.UserId = user;
 
                     // Add a trigger that will fire one minute after logon of the current user; the delay allows time for the PC to connect to the Internet.
                     LogonTrigger lt = new LogonTrigger();
@@ -73,16 +73,22 @@ namespace APOD_to_Desktop
                     // Register the task in the root folder
                     ts.RootFolder.RegisterTaskDefinition("APOD to Desktop", td);
                 }
-                RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-                rk.SetValue("APOD_to_Desktop", Application.ExecutablePath.ToString());
             }
             else if (!Properties.Settings.Default.RunAtStartup)
             {
                 // Get the service on the local machine
                 using (TaskService ts = new TaskService())
                 {
-                    // Remove the APOD task.
-                    ts.RootFolder.DeleteTask("APOD to Desktop");
+                    try
+                    {
+                        // Remove the APOD task if it exists.
+                        ts.RootFolder.DeleteTask("APOD to Desktop");
+                    }
+                    catch
+                    {
+                        Console.Write("No task exists.");
+                        Console.WriteLine();
+                    }
                 }
             }
 
