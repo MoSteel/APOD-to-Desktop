@@ -42,6 +42,10 @@ namespace APOD_to_Desktop
 
         static void Main(string[] args)
         {
+            // Get and store the directory location for the user local app data path.
+            string fileDestination = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            fileDestination = fileDestination + "\\APOD to Desktop\\";
+
             // Check if the startup setting has been changed; if True, make a startup key, if false, delete any existing startup keys.
             if (Properties.Settings.Default.RunAtStartup)
             {
@@ -108,7 +112,7 @@ namespace APOD_to_Desktop
                         {
                             GetApod.FindApodImage();
                             DateTime today = DateTime.Today;
-                            DesktopManager.Set("apod_" + today.ToString("d").Replace("/", "_") + ".jpg");
+                            DesktopManager.Set(fileDestination + "apod_" + today.ToString("d").Replace("/", "_") + ".jpg");
 
                             Console.Write("New wallpaper set.");
                             Console.WriteLine();
@@ -119,6 +123,7 @@ namespace APOD_to_Desktop
                         {
                             Console.Write("An error occurred.");
                             Console.WriteLine();
+                            break;
                         }
                     }
 

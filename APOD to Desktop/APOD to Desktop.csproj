@@ -70,6 +70,7 @@
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="Microsoft.Win32.TaskScheduler">
       <HintPath>..\packages\TaskScheduler.2.0.3\lib\2\Microsoft.Win32.TaskScheduler.dll</HintPath>
