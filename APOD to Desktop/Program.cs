@@ -24,22 +24,6 @@ namespace APOD_to_Desktop
 
     class Program
     {
-        public static bool CheckForInternetConnection()
-        {
-            try
-            {
-                using (var client = new WebClient())
-                using (var stream = client.OpenRead("http://apod.nasa.gov/apod/astropix.html"))
-                {
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
         static void Main(string[] args)
         {
             // Get and store the directory location for the user local app data path.
@@ -134,6 +118,22 @@ namespace APOD_to_Desktop
                 Console.Write("Sleeping 10 seconds...");
                 Console.WriteLine();
                 Thread.Sleep(10000);
+            }
+        }
+
+        public static bool CheckForInternetConnection()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                using (var stream = client.OpenRead("http://apod.nasa.gov/apod/astropix.html"))
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
     }
