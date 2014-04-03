@@ -33,28 +33,28 @@ namespace APOD_to_Desktop
         public static void Set(string path)
         {
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);
-            Style style = Properties.Settings.Default.Style;
+            string style = Properties.Settings.Default.Style;
 
             switch (style)
             {
-                case Style.Tile:
-                    key.SetValue(@"WallpaperStyle", "0");
-                    key.SetValue(@"TileWallpaper", "1");
-                    break;
-                case Style.Center:
-                    key.SetValue(@"WallpaperStyle", "0");
+                case "Fill":
+                    key.SetValue(@"WallpaperStyle", "10");
                     key.SetValue(@"TileWallpaper", "0");
                     break;
-                case Style.Stretch:
+                case "Stretch":
                     key.SetValue(@"WallpaperStyle", "2");
                     key.SetValue(@"TileWallpaper", "0");
                     break;
-                case Style.Fit: // (Windows 7 and later)
-                    key.SetValue(@"WallpaperStyle", "6");
+                case "Tile":
+                    key.SetValue(@"WallpaperStyle", "0");
+                    key.SetValue(@"TileWallpaper", "1");
+                    break;
+                case "Center":
+                    key.SetValue(@"WallpaperStyle", "0");
                     key.SetValue(@"TileWallpaper", "0");
                     break;
-                case Style.Fill: // (Windows 7 and later)
-                    key.SetValue(@"WallpaperStyle", "10");
+                case "Fit":
+                    key.SetValue(@"WallpaperStyle", "6");
                     key.SetValue(@"TileWallpaper", "0");
                     break;
             }

@@ -25,37 +25,49 @@ namespace APOD_to_Desktop.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool GetWallpaper {
-            get {
-                return ((bool)(this["GetWallpaper"]));
-            }
-            set {
-                this["GetWallpaper"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool RunAtStartup {
+        public bool AtLogonGetAPOD {
             get {
-                return ((bool)(this["RunAtStartup"]));
+                return ((bool)(this["AtLogonGetAPOD"]));
             }
             set {
-                this["RunAtStartup"] = value;
+                this["AtLogonGetAPOD"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Fill")]
-        public global::APOD_to_Desktop.Style Style {
+        public string Style {
             get {
-                return ((global::APOD_to_Desktop.Style)(this["Style"]));
+                return ((string)(this["Style"]));
             }
             set {
                 this["Style"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int MaxUsage {
+            get {
+                return ((int)(this["MaxUsage"]));
+            }
+            set {
+                this["MaxUsage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AtLogonUpdateApplication {
+            get {
+                return ((bool)(this["AtLogonUpdateApplication"]));
+            }
+            set {
+                this["AtLogonUpdateApplication"] = value;
             }
         }
     }

@@ -17,10 +17,27 @@ namespace APOD_to_Desktop
             InitializeComponent();
         }
 
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonOpenImgFolder_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonCheckAPOD_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void buttonOpenSettings_Click(object sender, EventArgs e)
         {
             FormSettings fs = new FormSettings();
             fs.Show();
+            fs.Location = new Point(this.Location.X + 25, this.Location.Y + 25);
         }
+
     }
 }

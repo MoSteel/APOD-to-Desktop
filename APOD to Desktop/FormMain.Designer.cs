@@ -65,27 +65,29 @@
             // 
             // buttonCheckAPOD
             // 
-            this.buttonCheckAPOD.Location = new System.Drawing.Point(123, 336);
+            this.buttonCheckAPOD.Location = new System.Drawing.Point(99, 336);
             this.buttonCheckAPOD.Name = "buttonCheckAPOD";
-            this.buttonCheckAPOD.Size = new System.Drawing.Size(124, 23);
+            this.buttonCheckAPOD.Size = new System.Drawing.Size(140, 23);
             this.buttonCheckAPOD.TabIndex = 3;
             this.buttonCheckAPOD.Text = "Check For New APOD";
             this.buttonCheckAPOD.UseVisualStyleBackColor = true;
+            this.buttonCheckAPOD.Click += new System.EventHandler(this.buttonCheckAPOD_Click);
             // 
             // buttonOpenImgFolder
             // 
-            this.buttonOpenImgFolder.Location = new System.Drawing.Point(253, 336);
+            this.buttonOpenImgFolder.Location = new System.Drawing.Point(245, 336);
             this.buttonOpenImgFolder.Name = "buttonOpenImgFolder";
-            this.buttonOpenImgFolder.Size = new System.Drawing.Size(124, 23);
+            this.buttonOpenImgFolder.Size = new System.Drawing.Size(140, 23);
             this.buttonOpenImgFolder.TabIndex = 4;
             this.buttonOpenImgFolder.Text = "Open Images Folder";
             this.buttonOpenImgFolder.UseVisualStyleBackColor = true;
+            this.buttonOpenImgFolder.Click += new System.EventHandler(this.buttonOpenImgFolder_Click);
             // 
             // buttonOpenSettings
             // 
-            this.buttonOpenSettings.Location = new System.Drawing.Point(383, 336);
+            this.buttonOpenSettings.Location = new System.Drawing.Point(391, 336);
             this.buttonOpenSettings.Name = "buttonOpenSettings";
-            this.buttonOpenSettings.Size = new System.Drawing.Size(124, 23);
+            this.buttonOpenSettings.Size = new System.Drawing.Size(140, 23);
             this.buttonOpenSettings.TabIndex = 5;
             this.buttonOpenSettings.Text = "Manage Settings";
             this.buttonOpenSettings.UseVisualStyleBackColor = true;
@@ -105,6 +107,7 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "APOD to Desktop (Version 0.1 - 2014 April 3)";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

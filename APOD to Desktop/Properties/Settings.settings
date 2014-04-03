@@ -2,14 +2,17 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="APOD_to_Desktop.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="GetWallpaper" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="RunAtStartup" Type="System.Boolean" Scope="User">
+    <Setting Name="AtLogonGetAPOD" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Style" Type="APOD_to_Desktop.Style" Scope="User">
+    <Setting Name="Style" Type="System.String" Scope="User">
       <Value Profile="(Default)">Fill</Value>
+    </Setting>
+    <Setting Name="MaxUsage" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="AtLogonUpdateApplication" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>
