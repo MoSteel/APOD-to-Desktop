@@ -8,14 +8,10 @@ namespace APOD_to_Desktop
     {
         public static void FindApodImage()
         {
-            // Get and store the directory location for the user local app data path.
-            string fileDestination = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            fileDestination = fileDestination + "\\APOD to Desktop\\";
-
             // If the APOD to Desktop user location does not exist, create it now.
-            if (!Directory.Exists(fileDestination))
+            if (!Directory.Exists(Properties.Settings.Default.AppFolder))
             {
-                Directory.CreateDirectory(fileDestination);
+                Directory.CreateDirectory(Properties.Settings.Default.AppFolder);
             }
 
             WebClient client = new WebClient();
@@ -25,12 +21,12 @@ namespace APOD_to_Desktop
             // Replace all html breaks for line seperators.
             htmlCode = htmlCode.Replace("<br>", "\r\n");
 
-            using (StreamWriter writer = new StreamWriter(fileDestination + "test.txt"))
+            using (StreamWriter writer = new StreamWriter(Properties.Settings.Default.AppFolder + "test.txt"))
             {
                 writer.Write(htmlCode);
             }
 
-            using (StreamReader reader = new StreamReader(fileDestination + "test.txt"))
+            using (StreamReader reader = new StreamReader(Properties.Settings.Default.AppFolder + "test.txt"))
             {
                 String line = String.Empty;
                 while ((line = reader.ReadLine()) != null)
@@ -50,16 +46,12 @@ namespace APOD_to_Desktop
 
         public static void GetApodImage(string url)
         {
-            // Get and store the directory location for the user local app data path.
-            string fileDestination = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            fileDestination = fileDestination + "\\APOD to Desktop\\";
-
             using (WebClient Client = new WebClient())
             {
                 // Put todays date into the image filename.
                 DateTime today = DateTime.Today;
                 Console.WriteLine("Saving to " + "apod_" + today.ToString("d").Replace("/", "_") + ".jpg");
-                Client.DownloadFile(url, fileDestination + "apod_" + today.ToString("d").Replace("/", "_") + ".jpg");
+                Client.DownloadFile(url, Properties.Settings.Default.AppFolder + "apod_" + today.ToString("d").Replace("/", "_") + ".jpg");
             }
         }
     }

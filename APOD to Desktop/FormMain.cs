@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace APOD_to_Desktop
 {
@@ -24,12 +25,14 @@ namespace APOD_to_Desktop
 
         private void buttonOpenImgFolder_Click(object sender, EventArgs e)
         {
-
+            Process.Start(Properties.Settings.Default.AppFolder);
         }
 
         private void buttonCheckAPOD_Click(object sender, EventArgs e)
         {
-
+            Cursor.Current = Cursors.WaitCursor;
+            Program.UpdateAPOD();
+            Cursor.Current = Cursors.Default;
         }
 
         private void buttonOpenSettings_Click(object sender, EventArgs e)

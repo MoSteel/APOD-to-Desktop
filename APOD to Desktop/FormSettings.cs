@@ -25,10 +25,6 @@ namespace APOD_to_Desktop
         /// </summary>
         private void FormSettings_Load(object sender, EventArgs e)
         {
-            // Get and store the directory location for the user local app data path.
-            string fileDestination = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            fileDestination = fileDestination + "\\APOD to Desktop\\";
-
             // Set the checkboxes according to program settings.
             if (Properties.Settings.Default.AtLogonGetAPOD)
                 checkBoxGetAPOD.CheckState = CheckState.Checked;
@@ -44,14 +40,14 @@ namespace APOD_to_Desktop
             comboBoxWallpaperStyle.SelectedItem = Properties.Settings.Default.Style;
 
             // Get the current storage value of the images folder.
-            long currentUsage = DirSize(new DirectoryInfo(fileDestination));
+            double currentUsage = DirSize(new DirectoryInfo(Properties.Settings.Default.AppFolder));
             if (currentUsage < 1000000000)
-                labelCurrentStorage.Text = Convert.ToString(currentUsage/1000000) +" MB";
+                labelCurrentStorage.Text = Convert.ToString((int)currentUsage/1000000) +" MB";
             else
-                labelCurrentStorage.Text = Convert.ToString(currentUsage/1000000000) +" GB";
+                labelCurrentStorage.Text = Convert.ToString((int)currentUsage/1000000000) +" GB";
 
             // Increments are 10 MB, 100 MB, 1 GB, 10 GB, 100 GB, Unlimited
-            switch (Properties.Settings.Default.MaxUsage)
+            switch ((int)Properties.Settings.Default.MaxUsage)
             {
                 case 10:
                     trackBarStorage.Value = 0;
@@ -84,9 +80,9 @@ namespace APOD_to_Desktop
         }
 
         // Returns the size of a directory including all files and subdirectories within in bytes.
-        public static long DirSize(DirectoryInfo d)
+        public static double DirSize(DirectoryInfo d)
         {
-            long Size = 0;
+            double Size = 0;
             // Add file sizes.
             FileInfo[] fis = d.GetFiles();
             foreach (FileInfo fi in fis)

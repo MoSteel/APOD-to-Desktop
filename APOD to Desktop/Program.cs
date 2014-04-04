@@ -21,6 +21,16 @@ namespace APOD_to_Desktop
         [STAThread]
         static void Main(string[] args)
         {
+            // Get and store the directory location for the user local app data path.
+            Properties.Settings.Default.AppFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\APOD to Desktop\\";
+
+            // If the APOD to Desktop user location does not exist, create it now.
+            if (!Directory.Exists(Properties.Settings.Default.AppFolder))
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.AppFolder);
+            }
+
+            // Check to see if an argument is passed in; if not, open FormMain.
             if (args.Length == 0 || args[0] != "UpdateAPOD")
             {
                 Application.EnableVisualStyles();
@@ -30,6 +40,10 @@ namespace APOD_to_Desktop
             {
                 UpdateAPOD();
             }
+
+            // Run the storage manager function if necessary.
+            if (Properties.Settings.Default.MaxUsage != 0)
+                StorageManager();
         }
 
         /// <summary>
@@ -37,45 +51,38 @@ namespace APOD_to_Desktop
         /// </summary>
         public static void UpdateAPOD()
         {
-            // Get and store the directory location for the user local app data path.
-            string fileDestination = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            fileDestination = fileDestination + "\\APOD to Desktop\\";
-
             // Try to get the image every ten seconds over a 2 minute time span.
             for (int i = 0; i < 12; i++)
             {
-                Console.Write("Cycle number: " + i.ToString());
-                Console.WriteLine();
-
                 // Wait to see if a network is up before running through the application.
                 if (CheckForInternetConnection())
                 {
                     try
                     {
-                        GetApod.FindApodImage();
                         DateTime today = DateTime.Today;
-                        DesktopManager.Set(fileDestination + "apod_" + today.ToString("d").Replace("/", "_") + ".jpg");
 
-                        Console.Write("New wallpaper set.");
-                        Console.WriteLine();
-                        Console.Read();
+                        // If we already have an APOD for today, don't try to get another one.
+                        if(File.Exists(Properties.Settings.Default.AppFolder + "apod_" + today.ToString("d").Replace("/", "_") + ".jpg"))
+                            return;
+
+                        GetApod.FindApodImage();
+                        DesktopManager.Set(Properties.Settings.Default.AppFolder + "apod_" + today.ToString("d").Replace("/", "_") + ".jpg");
                         return;
                     }
                     catch
                     {
-                        Console.Write("An error occurred.");
-                        Console.WriteLine();
                         break;
                     }
                 }
 
-                // Put the application to sleep for ten seconds.
-                Console.Write("Sleeping 10 seconds...");
-                Console.WriteLine();
+                // Put the application to sleep for ten seconds if we didn't find a connection to the APOD site.
                 Thread.Sleep(10000);
             }
         }
 
+        /// <summary>
+        /// Checks for an internet connection to the APOD website.
+        /// </summary>
         public static bool CheckForInternetConnection()
         {
             try
@@ -89,6 +96,25 @@ namespace APOD_to_Desktop
             catch
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Manages the amount of storage space used by the application if a limit is set.
+        /// </summary>
+        public static void StorageManager()
+        {
+            double currentUsage = FormSettings.DirSize(new DirectoryInfo(Properties.Settings.Default.AppFolder));
+
+            // Compare the current usage in bytes to the max usage, converted to bytes.
+            while (currentUsage > (Properties.Settings.Default.MaxUsage) * 1000000)
+            {
+                // Delete the oldest image.
+                FileSystemInfo fileInfo = new DirectoryInfo(Properties.Settings.Default.AppFolder).GetFileSystemInfos().OrderByDescending(fi => fi.CreationTime).Last();
+                File.Delete(fileInfo.FullName);
+
+                // Recalculate the current usage.
+                currentUsage = FormSettings.DirSize(new DirectoryInfo(Properties.Settings.Default.AppFolder));
             }
         }
     }

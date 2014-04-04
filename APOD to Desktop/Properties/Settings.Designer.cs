@@ -50,9 +50,9 @@ namespace APOD_to_Desktop.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int MaxUsage {
+        public double MaxUsage {
             get {
-                return ((int)(this["MaxUsage"]));
+                return ((double)(this["MaxUsage"]));
             }
             set {
                 this["MaxUsage"] = value;
@@ -68,6 +68,18 @@ namespace APOD_to_Desktop.Properties {
             }
             set {
                 this["AtLogonUpdateApplication"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AppFolder {
+            get {
+                return ((string)(this["AppFolder"]));
+            }
+            set {
+                this["AppFolder"] = value;
             }
         }
     }
