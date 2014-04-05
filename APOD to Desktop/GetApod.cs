@@ -57,7 +57,6 @@ namespace APOD_to_Desktop
             {
                 // Put todays date into the image filename.
                 DateTime today = DateTime.Today;
-                Console.WriteLine("Saving to " + "apod_" + today.ToString("d").Replace("/", "_") + ".jpg");
                 Client.DownloadFile(url, Properties.Settings.Default.AppFolder + "apod_" + today.ToString("d").Replace("/", "_") + ".jpg");
             }
         }

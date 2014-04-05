@@ -25,7 +25,7 @@ namespace APOD_to_Desktop.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool AtLogonGetAPOD {
             get {
                 return ((bool)(this["AtLogonGetAPOD"]));

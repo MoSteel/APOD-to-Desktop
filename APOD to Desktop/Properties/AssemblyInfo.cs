@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("APOD to Desktop")]
 [assembly: AssemblyDescription("Make the Astronomy Picture of the Day your desktop wallpaper.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Tim Loch")]
+[assembly: AssemblyCompany("APOD to Desktop")]
 [assembly: AssemblyProduct("APOD to Desktop")]
 [assembly: AssemblyCopyright("Copyright ©Tim Loch  2014")]
 [assembly: AssemblyTrademark("")]

@@ -42,11 +42,11 @@
             this.trackBarStorage = new System.Windows.Forms.TrackBar();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForNewAPODToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openImagesFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visitAPODWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -210,12 +210,6 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            // 
             // checkForNewAPODToolStripMenuItem
             // 
             this.checkForNewAPODToolStripMenuItem.Name = "checkForNewAPODToolStripMenuItem";
@@ -230,6 +224,13 @@
             this.openImagesFolderToolStripMenuItem.Text = "Open Images Folder";
             this.openImagesFolderToolStripMenuItem.Click += new System.EventHandler(this.openImagesFolderToolStripMenuItem_Click);
             // 
+            // visitAPODWebsiteToolStripMenuItem
+            // 
+            this.visitAPODWebsiteToolStripMenuItem.Name = "visitAPODWebsiteToolStripMenuItem";
+            this.visitAPODWebsiteToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.visitAPODWebsiteToolStripMenuItem.Text = "Visit APOD Website";
+            this.visitAPODWebsiteToolStripMenuItem.Click += new System.EventHandler(this.visitAPODWebsiteToolStripMenuItem_Click);
+            // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
@@ -237,12 +238,11 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
-            // visitAPODWebsiteToolStripMenuItem
+            // aboutToolStripMenuItem
             // 
-            this.visitAPODWebsiteToolStripMenuItem.Name = "visitAPODWebsiteToolStripMenuItem";
-            this.visitAPODWebsiteToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.visitAPODWebsiteToolStripMenuItem.Text = "Visit APOD Website";
-            this.visitAPODWebsiteToolStripMenuItem.Click += new System.EventHandler(this.visitAPODWebsiteToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
             // FormSettings
             // 
@@ -256,7 +256,7 @@
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "FormSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "APOD to Desktop (Version 0.2 - 2014 April 5)";
+            this.Text = "APOD to Desktop (Version 1.0 - 2014 April 5)";
             this.Load += new System.EventHandler(this.FormSettings_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

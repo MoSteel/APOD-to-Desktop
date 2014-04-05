@@ -18,7 +18,7 @@ namespace APOD_to_Desktop
         static void Main(string[] args)
         {
             // Get and store the directory location for the user local app data path.
-            Properties.Settings.Default.AppFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\APOD to Desktop\\";
+            Properties.Settings.Default.AppFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\APOD_to_Desktop\\Images\\";
 
             // If the APOD to Desktop user location does not exist, create it now.
             if (!Directory.Exists(Properties.Settings.Default.AppFolder))
@@ -58,7 +58,7 @@ namespace APOD_to_Desktop
                         DateTime today = DateTime.Today;
 
                         // If we already have an APOD for today, don't try to get another one.
-                        if(File.Exists(Properties.Settings.Default.AppFolder + "apod_" + today.ToString("d").Replace("/", "_") + ".jpg"))
+                        if (File.Exists(Properties.Settings.Default.AppFolder + "apod_" + today.ToString("d").Replace("/", "_") + ".jpg"))
                             return;
 
                         GetApod.FindApodImage();

@@ -104,6 +104,8 @@ namespace APOD_to_Desktop
             ManageScheduledTask();
 
             Cursor.Current = Cursors.Default;
+
+            Properties.Settings.Default.Save();
         }
 
         private void checkBoxCheckUpdates_CheckedChanged(object sender, EventArgs e)
@@ -113,12 +115,16 @@ namespace APOD_to_Desktop
                 Properties.Settings.Default.AtLogonUpdateApplication = true;
             else
                 Properties.Settings.Default.AtLogonUpdateApplication = false;
+
+            Properties.Settings.Default.Save();
         }
 
         private void comboBoxWallpaperStyle_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Set the style according to the dropdown combobox value.
             Properties.Settings.Default.Style = comboBoxWallpaperStyle.GetItemText(comboBoxWallpaperStyle.SelectedItem);
+
+            Properties.Settings.Default.Save();
         }
 
         private void trackBarStorage_Scroll(object sender, EventArgs e)
