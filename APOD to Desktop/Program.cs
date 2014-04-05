@@ -1,10 +1,6 @@
 ﻿using System;
-using System.ServiceProcess;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Net;
@@ -34,7 +30,7 @@ namespace APOD_to_Desktop
             if (args.Length == 0 || args[0] != "UpdateAPOD")
             {
                 Application.EnableVisualStyles();
-                Application.Run(new FormMain());
+                Application.Run(new FormSettings());
             }
             else if (args[0] == "UpdateAPOD")
             {

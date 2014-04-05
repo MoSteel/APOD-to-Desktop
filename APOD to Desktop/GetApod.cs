@@ -6,6 +6,9 @@ namespace APOD_to_Desktop
 {
     class GetApod
     {
+        /// <summary>
+        /// Read the APOD website and locate the URL needed to retrieve the APOD.
+        /// </summary>
         public static void FindApodImage()
         {
             // If the APOD to Desktop user location does not exist, create it now.
@@ -44,6 +47,10 @@ namespace APOD_to_Desktop
             }
         }
 
+        /// <summary>
+        /// Retrieves the APOD.
+        /// </summary>
+        /// <param name="url">Web url of the APOD image.</param>
         public static void GetApodImage(string url)
         {
             using (WebClient Client = new WebClient())

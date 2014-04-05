@@ -1,14 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
 
 
 namespace APOD_to_Desktop
 {
+
     class DesktopManager
     {
         const int SPI_SETDESKWALLPAPER = 20;
@@ -20,6 +18,9 @@ namespace APOD_to_Desktop
         private static extern bool SystemParametersInfo(uint uiAction, uint uiParam,
             string pvParam, uint fWinIni);
 
+        /// <summary>
+        /// Get the current wallpaper image.
+        /// </summary>
         public static void Get()
         {
             string wallpaper;
@@ -30,6 +31,10 @@ namespace APOD_to_Desktop
             Console.Write(wallpaper);
         }
 
+        /// <summary>
+        /// Set the new wallpaper to the APOD.
+        /// </summary>
+        /// <param name="path">Path of the saved image.</param>
         public static void Set(string path)
         {
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);

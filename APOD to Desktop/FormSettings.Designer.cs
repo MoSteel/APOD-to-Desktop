@@ -28,9 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonApply = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonOK = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBoxCheckUpdates = new System.Windows.Forms.CheckBox();
             this.checkBoxGetAPOD = new System.Windows.Forms.CheckBox();
@@ -43,48 +40,25 @@
             this.labelCurrentStorage = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.trackBarStorage = new System.Windows.Forms.TrackBar();
+            this.menuStripMain = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkForNewAPODToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openImagesFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.visitAPODWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarStorage)).BeginInit();
+            this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // buttonApply
-            // 
-            this.buttonApply.Enabled = false;
-            this.buttonApply.Location = new System.Drawing.Point(288, 270);
-            this.buttonApply.Name = "buttonApply";
-            this.buttonApply.Size = new System.Drawing.Size(75, 23);
-            this.buttonApply.TabIndex = 1;
-            this.buttonApply.Text = "Apply";
-            this.buttonApply.UseVisualStyleBackColor = true;
-            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Location = new System.Drawing.Point(207, 270);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 2;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // buttonOK
-            // 
-            this.buttonOK.Location = new System.Drawing.Point(126, 270);
-            this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 3;
-            this.buttonOK.Text = "OK";
-            this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.checkBoxCheckUpdates);
             this.groupBox1.Controls.Add(this.checkBoxGetAPOD);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(351, 67);
             this.groupBox1.TabIndex = 6;
@@ -121,7 +95,7 @@
             // 
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.comboBoxWallpaperStyle);
-            this.groupBox2.Location = new System.Drawing.Point(12, 85);
+            this.groupBox2.Location = new System.Drawing.Point(12, 100);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(351, 77);
             this.groupBox2.TabIndex = 7;
@@ -160,7 +134,7 @@
             this.groupBox3.Controls.Add(this.labelCurrentStorage);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.trackBarStorage);
-            this.groupBox3.Location = new System.Drawing.Point(12, 168);
+            this.groupBox3.Location = new System.Drawing.Point(12, 183);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(351, 96);
             this.groupBox3.TabIndex = 8;
@@ -214,20 +188,75 @@
             this.trackBarStorage.Value = 5;
             this.trackBarStorage.Scroll += new System.EventHandler(this.trackBarStorage_Scroll);
             // 
+            // menuStripMain
+            // 
+            this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.menuStripMain.Location = new System.Drawing.Point(0, 0);
+            this.menuStripMain.Name = "menuStripMain";
+            this.menuStripMain.Size = new System.Drawing.Size(375, 24);
+            this.menuStripMain.TabIndex = 9;
+            this.menuStripMain.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.checkForNewAPODToolStripMenuItem,
+            this.openImagesFolderToolStripMenuItem,
+            this.visitAPODWebsiteToolStripMenuItem,
+            this.closeToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // checkForNewAPODToolStripMenuItem
+            // 
+            this.checkForNewAPODToolStripMenuItem.Name = "checkForNewAPODToolStripMenuItem";
+            this.checkForNewAPODToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.checkForNewAPODToolStripMenuItem.Text = "Check For APOD Now";
+            this.checkForNewAPODToolStripMenuItem.Click += new System.EventHandler(this.checkForNewAPODToolStripMenuItem_Click);
+            // 
+            // openImagesFolderToolStripMenuItem
+            // 
+            this.openImagesFolderToolStripMenuItem.Name = "openImagesFolderToolStripMenuItem";
+            this.openImagesFolderToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.openImagesFolderToolStripMenuItem.Text = "Open Images Folder";
+            this.openImagesFolderToolStripMenuItem.Click += new System.EventHandler(this.openImagesFolderToolStripMenuItem_Click);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // visitAPODWebsiteToolStripMenuItem
+            // 
+            this.visitAPODWebsiteToolStripMenuItem.Name = "visitAPODWebsiteToolStripMenuItem";
+            this.visitAPODWebsiteToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.visitAPODWebsiteToolStripMenuItem.Text = "Visit APOD Website";
+            this.visitAPODWebsiteToolStripMenuItem.Click += new System.EventHandler(this.visitAPODWebsiteToolStripMenuItem_Click);
+            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 303);
+            this.ClientSize = new System.Drawing.Size(375, 288);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.buttonOK);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonApply);
+            this.Controls.Add(this.menuStripMain);
+            this.MainMenuStrip = this.menuStripMain;
             this.Name = "FormSettings";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "APOD to Desktop Settings";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "APOD to Desktop (Version 0.2 - 2014 April 5)";
             this.Load += new System.EventHandler(this.FormSettings_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -236,15 +265,15 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarStorage)).EndInit();
+            this.menuStripMain.ResumeLayout(false);
+            this.menuStripMain.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button buttonApply;
-        private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox checkBoxCheckUpdates;
         private System.Windows.Forms.CheckBox checkBoxGetAPOD;
@@ -257,5 +286,12 @@
         private System.Windows.Forms.Label labelCurrentStorage;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TrackBar trackBarStorage;
+        private System.Windows.Forms.MenuStrip menuStripMain;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkForNewAPODToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openImagesFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem visitAPODWebsiteToolStripMenuItem;
     }
 }

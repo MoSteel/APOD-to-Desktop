@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using Microsoft.Win32.TaskScheduler;
@@ -74,9 +69,6 @@ namespace APOD_to_Desktop
                     labelMaxStorage.Text = "Unlimited";
                     break;
             }
-
-            // Disable the Apply button now that all settings are displayed properly.
-            buttonApply.Enabled = false;
         }
 
         // Returns the size of a directory including all files and subdirectories within in bytes.
@@ -100,86 +92,90 @@ namespace APOD_to_Desktop
 
         private void checkBoxGetAPOD_CheckedChanged(object sender, EventArgs e)
         {
-            buttonApply.Enabled = true;
+            Cursor.Current = Cursors.WaitCursor;
+
+            // Adjust settings based on the checkbox values.
+            if (checkBoxGetAPOD.CheckState == CheckState.Checked)
+                Properties.Settings.Default.AtLogonGetAPOD = true;
+            else
+                Properties.Settings.Default.AtLogonGetAPOD = false;
+
+            // Create or delete the scheduled task accordingly.
+            ManageScheduledTask();
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void checkBoxCheckUpdates_CheckedChanged(object sender, EventArgs e)
-        {
-            buttonApply.Enabled = true;
-        }
-
-        private void comboBoxWallpaperStyle_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            buttonApply.Enabled = true;
-        }
-
-        private void trackBarStorage_Scroll(object sender, EventArgs e)
-        {
-            buttonApply.Enabled = true;
-
-            // Increments are 10 MB, 100 MB, 1 GB, 10 GB, 100 GB, Unlimited
-            switch (trackBarStorage.Value)
-            {
-                case 0:
-                    labelMaxStorage.Text = "10 MB";
-                    break;
-                case 1:
-                    labelMaxStorage.Text = "100 MB";
-                    break;
-                case 2:
-                    labelMaxStorage.Text = "1 GB";
-                    break;
-                case 3:
-                    labelMaxStorage.Text = "10 GB";
-                    break;
-                case 4:
-                    labelMaxStorage.Text = "100 GB";
-                    break;
-                case 5:
-                    labelMaxStorage.Text = "Unlimited";
-                    break;
-            }
-        }
-
-        private void buttonOK_Click(object sender, EventArgs e)
-        {
-            SaveSettings();
-            this.Close();
-        }
-
-        private void buttonApply_Click(object sender, EventArgs e)
-        {
-            SaveSettings();
-            buttonApply.Enabled = false;
-        }
-
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        /// <summary>
-        /// Save the settings for APOD to Desktop.
-        /// </summary>
-        public void SaveSettings()
         {
             // Adjust settings based on the checkbox values.
             if (checkBoxCheckUpdates.CheckState == CheckState.Checked)
                 Properties.Settings.Default.AtLogonUpdateApplication = true;
             else
                 Properties.Settings.Default.AtLogonUpdateApplication = false;
+        }
 
-            if (checkBoxGetAPOD.CheckState == CheckState.Checked)
-                Properties.Settings.Default.AtLogonGetAPOD = true;
-            else
-                Properties.Settings.Default.AtLogonGetAPOD = false;
+        private void comboBoxWallpaperStyle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Set the style according to the dropdown combobox value.
+            Properties.Settings.Default.Style = comboBoxWallpaperStyle.GetItemText(comboBoxWallpaperStyle.SelectedItem);
+        }
 
+        private void trackBarStorage_Scroll(object sender, EventArgs e)
+        {
+            // Increments are 10 MB, 100 MB, 1 GB, 10 GB, 100 GB, Unlimited
+            switch (trackBarStorage.Value)
+            {
+                case 0:
+                    Properties.Settings.Default.MaxUsage = 10;
+                    labelMaxStorage.Text = "10 MB";
+                    break;
+                case 1:
+                    Properties.Settings.Default.MaxUsage = 100;
+                    labelMaxStorage.Text = "100 MB";
+                    break;
+                case 2:
+                    Properties.Settings.Default.MaxUsage = 1024;
+                    labelMaxStorage.Text = "1 GB";
+                    break;
+                case 3:
+                    Properties.Settings.Default.MaxUsage = 10240;
+                    labelMaxStorage.Text = "10 GB";
+                    break;
+                case 4:
+                    Properties.Settings.Default.MaxUsage = 102400;
+                    labelMaxStorage.Text = "100 GB";
+                    break;
+                case 5:
+                    Properties.Settings.Default.MaxUsage = 0;
+                    labelMaxStorage.Text = "Unlimited";
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Save the settings for APOD to Desktop by creating or deleting a scheduled task.
+        /// </summary>
+        public void ManageScheduledTask()
+        {
             // Set the program to check for new APOD image at logon if the setting is true, otherwise delete any such scheduled tasks.
             if (Properties.Settings.Default.AtLogonGetAPOD)
             {
                 // Get the service on the local machine
                 using (TaskService ts = new TaskService())
                 {
+                    // Check for an existing service; if one exists, don't create a new one.
+                    try
+                    {
+                        if (ts.FindTask("APOD to Desktop").IsActive)
+                            return;
+                    }
+                    catch
+                    {
+                        Console.Write("No task exists.");
+                        Console.WriteLine();
+                    }
+
                     // Get the current user name.
                     string user = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
 
@@ -199,7 +195,7 @@ namespace APOD_to_Desktop
                     // Add the trigger to the task.
                     td.Triggers.Add(lt);
 
-                    // Create an action that will launch APOD once the trigger fires.
+                    // Create an action that will launch APOD in Update mode once the trigger fires.
                     td.Actions.Add(new ExecAction(appPath, "UpdateAPOD", null));
 
                     // Register the task in the root folder
@@ -223,32 +219,28 @@ namespace APOD_to_Desktop
                     }
                 }
             }
+        }
 
-            // Set the style according to the dropdown combobox value.
-            Properties.Settings.Default.Style = comboBoxWallpaperStyle.GetItemText(comboBoxWallpaperStyle.SelectedItem);
+        private void checkForNewAPODToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            Program.UpdateAPOD();
+            Cursor.Current = Cursors.Default;
+        }
 
-            // Increments are 10 MB, 100 MB, 1 GB, 10 GB, 100 GB, Unlimited
-            switch (trackBarStorage.Value)
-            {
-                case 0:
-                    Properties.Settings.Default.MaxUsage = 10;
-                    break;
-                case 1:
-                    Properties.Settings.Default.MaxUsage = 100;
-                    break;
-                case 2:
-                    Properties.Settings.Default.MaxUsage = 1024;
-                    break;
-                case 3:
-                    Properties.Settings.Default.MaxUsage = 10240;
-                    break;
-                case 4:
-                    Properties.Settings.Default.MaxUsage = 102400;
-                    break;
-                case 5:
-                    Properties.Settings.Default.MaxUsage = 0;
-                    break;
-            }
+        private void openImagesFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(Properties.Settings.Default.AppFolder);
+        }
+
+        private void visitAPODWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://apod.nasa.gov/apod/astropix.html");
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
