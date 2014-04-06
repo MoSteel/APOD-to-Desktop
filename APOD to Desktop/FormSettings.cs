@@ -69,6 +69,9 @@ namespace APOD_to_Desktop
                     labelMaxStorage.Text = "Unlimited";
                     break;
             }
+
+            // Create or delete the scheduled task accordingly.
+            ManageScheduledTask();
         }
 
         // Returns the size of a directory including all files and subdirectories within in bytes.
@@ -157,6 +160,8 @@ namespace APOD_to_Desktop
                     labelMaxStorage.Text = "Unlimited";
                     break;
             }
+
+            Properties.Settings.Default.Save();
         }
 
         /// <summary>
