@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Security.Permissions;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -16,11 +15,15 @@ namespace APOD_to_Desktop
             InitializeComponent();
         }
 
+        bool isLoading = false;
+
         /// <summary>
         /// Populate the controls with existing application settings values.
         /// </summary>
         private void FormSettings_Load(object sender, EventArgs e)
         {
+            isLoading = true;
+
             // Set the checkboxes according to program settings.
             if (Properties.Settings.Default.AtLogonGetAPOD)
                 checkBoxGetAPOD.CheckState = CheckState.Checked;
@@ -73,6 +76,8 @@ namespace APOD_to_Desktop
 
             // Create or delete the scheduled task accordingly.
             ManageScheduledTask();
+
+            isLoading = false;
         }
 
         // Returns the size of a directory including all files and subdirectories within in bytes.
@@ -104,25 +109,35 @@ namespace APOD_to_Desktop
             else
                 Properties.Settings.Default.AtLogonGetAPOD = false;
 
+            Properties.Settings.Default.Save();
+
             // Create or delete the scheduled task accordingly.
             ManageScheduledTask();
 
             Cursor.Current = Cursors.Default;
 
-            Properties.Settings.Default.Save();
+            
         }
 
         private void checkBoxContextMenu_CheckedChanged(object sender, EventArgs e)
         {
-            // Adjust settings based on the checkbox values.
-            if (checkBoxContextMenu.CheckState == CheckState.Checked)
-                Properties.Settings.Default.ContextMenu = true;
-            else
-                Properties.Settings.Default.ContextMenu = false;
+            Cursor.Current = Cursors.WaitCursor;
 
-            ManageContextMenu();
+            // Avoid running code if we're just loading the state of the checkbox from user preferences instead of the user making a change.
+            if (!isLoading)
+            {
+                // Adjust settings based on the checkbox values.
+                if (checkBoxContextMenu.CheckState == CheckState.Checked)
+                    Properties.Settings.Default.ContextMenu = true;
+                else
+                    Properties.Settings.Default.ContextMenu = false;
 
-            Properties.Settings.Default.Save();
+                Properties.Settings.Default.Save();
+
+                ManageContextMenu(Properties.Settings.Default.ContextMenu);
+            }
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void comboBoxWallpaperStyle_SelectedIndexChanged(object sender, EventArgs e)
@@ -236,47 +251,41 @@ namespace APOD_to_Desktop
         }
 
         /// <summary>
-        /// Create or delete options for the desktop context menu when right-clicking according to user preferences.
+        /// In order to make the necessary registry changes, we need elevated privileges.  Rather than request them each time at startup,
+        /// it's less intrusive to launch a new instance of the application with a request for elevation and an argument that only
+        /// runs a specific segment of code and then exits.
         /// </summary>
-        public void ManageContextMenu()
+        public void ManageContextMenu(bool addMenu)
         {
-            /*
-            if (Properties.Settings.Default.ContextMenu)
+            int apodProcNumber = 0;
+
+            // Make sure we don't have too many instances of the application running, to prevent runaway application loops.
+            Process[] allProcs = Process.GetProcesses();
+
+            foreach (Process proc in allProcs)
             {
-                try
-                {
-                    RegistryPermission perm = new RegistryPermission(RegistryPermissionAccess.Write, @"HKEY_CLASSES_ROOT\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\Shell");
-                    perm.Demand();
-                }
-                catch(System.Security.SecurityException)
-                {
-                    return;
-                }
-
-                // First create all the subkeys we will need for the menu appearance and commands.
-                Registry.ClassesRoot.CreateSubKey(@"DesktopBackground\Shell\MenuAPOD");
-                Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\Shell\APOD");
-                Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\Shell\APOD\command");
-
-                // Next setup the appearance of the context menu option.
-                RegistryKey apodKey = Registry.ClassesRoot.OpenSubKey(@"DesktopBackground\Shell\MenuAPOD", true);
-                apodKey.SetValue(@"WallpaperStyle", "0");
-                apodKey.SetValue(@"MUIVerb", "Visit APOD Website", RegistryValueKind.String);
-                apodKey.SetValue(@"SubCommands", "APOD", RegistryValueKind.String);
-                apodKey.SetValue(@"Position", "Top", RegistryValueKind.String);
-
-                // Then make the context menu option functional.
-                RegistryKey commandKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\Shell\APOD\command", true);
-                commandKey.SetValue(@"Default", "http://apod.nasa.gov/apod/astropix.html", RegistryValueKind.String);
+                if (proc.ProcessName.StartsWith("APOD"))
+                    apodProcNumber++;
             }
-            else if (!Properties.Settings.Default.ContextMenu)
+
+            // If less than two instances are running we're fine with opening a new instance.
+            if (apodProcNumber < 3)
             {
-                // Delete the subkeys we aren't using anymore.
-                Registry.LocalMachine.DeleteSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\Shell\APOD\command");
-                Registry.LocalMachine.DeleteSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\Shell\APOD");
-                Registry.ClassesRoot.DeleteSubKey(@"DesktopBackground\Shell\MenuAPOD");
+                string appPath = Application.ExecutablePath;
+
+                Process apodProc = new Process();
+
+                apodProc.StartInfo.FileName = appPath;
+                apodProc.StartInfo.Arguments = addMenu.ToString() + "ContextMenu";
+                apodProc.StartInfo.UseShellExecute = true;
+                apodProc.StartInfo.Verb = "runas";
+                apodProc.Start();
             }
-             */
+            else if (apodProcNumber >= 3)
+            {
+                MessageBox.Show("More than one instance of the APOD to Desktop process is currently running, unable to change Context Menu settings.");
+                return;
+            }
         }
 
         private void checkForNewAPODToolStripMenuItem_Click(object sender, EventArgs e)

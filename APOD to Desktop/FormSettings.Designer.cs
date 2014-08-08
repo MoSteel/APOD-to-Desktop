@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxContextMenu = new System.Windows.Forms.CheckBox();
+            this.checkBoxGetAPOD = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBoxWallpaperStyle = new System.Windows.Forms.ComboBox();
@@ -45,8 +47,6 @@
             this.visitAPODWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkBoxGetAPOD = new System.Windows.Forms.CheckBox();
-            this.checkBoxContextMenu = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -64,6 +64,30 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "General Settings";
+            // 
+            // checkBoxContextMenu
+            // 
+            this.checkBoxContextMenu.AutoSize = true;
+            this.checkBoxContextMenu.Location = new System.Drawing.Point(6, 42);
+            this.checkBoxContextMenu.Name = "checkBoxContextMenu";
+            this.checkBoxContextMenu.Size = new System.Drawing.Size(291, 17);
+            this.checkBoxContextMenu.TabIndex = 7;
+            this.checkBoxContextMenu.Text = "Add \'Visit APOD Website\'  to the Desktop Context Menu";
+            this.checkBoxContextMenu.UseVisualStyleBackColor = true;
+            this.checkBoxContextMenu.CheckedChanged += new System.EventHandler(this.checkBoxContextMenu_CheckedChanged);
+            // 
+            // checkBoxGetAPOD
+            // 
+            this.checkBoxGetAPOD.AutoSize = true;
+            this.checkBoxGetAPOD.Checked = true;
+            this.checkBoxGetAPOD.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxGetAPOD.Location = new System.Drawing.Point(6, 19);
+            this.checkBoxGetAPOD.Name = "checkBoxGetAPOD";
+            this.checkBoxGetAPOD.Size = new System.Drawing.Size(267, 17);
+            this.checkBoxGetAPOD.TabIndex = 6;
+            this.checkBoxGetAPOD.Text = "Automatically check for new APOD image at logon.";
+            this.checkBoxGetAPOD.UseVisualStyleBackColor = true;
+            this.checkBoxGetAPOD.CheckedChanged += new System.EventHandler(this.checkBoxGetAPOD_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -217,32 +241,7 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
-            // 
-            // checkBoxGetAPOD
-            // 
-            this.checkBoxGetAPOD.AutoSize = true;
-            this.checkBoxGetAPOD.Checked = true;
-            this.checkBoxGetAPOD.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxGetAPOD.Location = new System.Drawing.Point(6, 19);
-            this.checkBoxGetAPOD.Name = "checkBoxGetAPOD";
-            this.checkBoxGetAPOD.Size = new System.Drawing.Size(267, 17);
-            this.checkBoxGetAPOD.TabIndex = 6;
-            this.checkBoxGetAPOD.Text = "Automatically check for new APOD image at logon.";
-            this.checkBoxGetAPOD.UseVisualStyleBackColor = true;
-            this.checkBoxGetAPOD.CheckedChanged += new System.EventHandler(this.checkBoxGetAPOD_CheckedChanged);
-            // 
-            // checkBoxContextMenu
-            // 
-            this.checkBoxContextMenu.AutoSize = true;
-            this.checkBoxContextMenu.Checked = true;
-            this.checkBoxContextMenu.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxContextMenu.Location = new System.Drawing.Point(6, 42);
-            this.checkBoxContextMenu.Name = "checkBoxContextMenu";
-            this.checkBoxContextMenu.Size = new System.Drawing.Size(291, 17);
-            this.checkBoxContextMenu.TabIndex = 7;
-            this.checkBoxContextMenu.Text = "Add \'Visit APOD Website\'  to the Desktop Context Menu";
-            this.checkBoxContextMenu.UseVisualStyleBackColor = true;
-            this.checkBoxContextMenu.CheckedChanged += new System.EventHandler(this.checkBoxContextMenu_CheckedChanged);
+            this.aboutToolStripMenuItem.Visible = false;
             // 
             // FormSettings
             // 

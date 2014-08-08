@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Threading;
 using System.Net;
+using Microsoft.Win32;
 
 
 namespace APOD_to_Desktop
@@ -27,7 +28,7 @@ namespace APOD_to_Desktop
             }
 
             // Check to see if an argument is passed in; if not, open FormMain.
-            if (args.Length == 0 || args[0] != "UpdateAPOD")
+            if (args.Length == 0)
             {
                 Application.EnableVisualStyles();
                 Application.Run(new FormSettings());
@@ -35,6 +36,14 @@ namespace APOD_to_Desktop
             else if (args[0] == "UpdateAPOD")
             {
                 UpdateAPOD();
+            }
+            else if (args[0] == "FalseContextMenu")
+            {
+                ContextManager(false);
+            }
+            else if (args[0] == "TrueContextMenu")
+            {
+                ContextManager(true);
             }
 
             // Run the storage manager function if necessary.
@@ -111,6 +120,41 @@ namespace APOD_to_Desktop
 
                 // Recalculate the current usage.
                 currentUsage = FormSettings.DirSize(new DirectoryInfo(Properties.Settings.Default.AppFolder));
+            }
+        }
+
+        /// <summary>
+        /// Called when the application is started with the 'ContextMenu' argument, this should run correctly using elevated privileges.
+        /// </summary>
+        public static void ContextManager(bool addContextMenu)
+        {
+            if (addContextMenu)
+            {
+                try
+                {
+                    // Setup the registry key to create a context menu option for the desktop context menu.
+                    RegistryKey apodKey = Registry.ClassesRoot.CreateSubKey(@"Directory\Background\shell\Visit APOD Website");
+                    apodKey.SetValue("Position", "Top", RegistryValueKind.String);
+                    RegistryKey commandKey = Registry.ClassesRoot.CreateSubKey(@"Directory\Background\shell\Visit APOD Website\command");
+                    commandKey.SetValue("", @"iexplore apod.nasa.gov/apod/astropix.html", RegistryValueKind.String);
+                }
+                catch
+                {
+
+                }
+            }
+            else if (!addContextMenu)
+            {
+                try
+                {
+                    // Delete the registry keys we aren't using anymore.
+                    Registry.ClassesRoot.DeleteSubKey(@"Directory\Background\shell\Visit APOD Website\command");
+                    Registry.ClassesRoot.DeleteSubKey(@"Directory\Background\shell\Visit APOD Website");
+                }
+                catch
+                {
+
+                }
             }
         }
     }
