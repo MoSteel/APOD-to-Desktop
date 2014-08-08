@@ -116,6 +116,9 @@
   <ItemGroup>
     <None Include="APOD to Desktop_TemporaryKey.pfx" />
     <None Include="App.config" />
+    <None Include="Astronomy Picture of the Day.url">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

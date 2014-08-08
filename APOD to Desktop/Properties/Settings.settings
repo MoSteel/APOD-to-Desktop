@@ -11,7 +11,7 @@
     <Setting Name="MaxUsage" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="AtLogonUpdateApplication" Type="System.Boolean" Scope="User">
+    <Setting Name="ContextMenu" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="AppFolder" Type="System.String" Scope="User">

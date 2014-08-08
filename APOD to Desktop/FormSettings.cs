@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Security.Permissions;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -26,10 +27,10 @@ namespace APOD_to_Desktop
             else
                 checkBoxGetAPOD.CheckState = CheckState.Unchecked;
 
-            if (Properties.Settings.Default.AtLogonUpdateApplication)
-                checkBoxCheckUpdates.CheckState = CheckState.Checked;
+            if (Properties.Settings.Default.ContextMenu)
+                checkBoxContextMenu.CheckState = CheckState.Checked;
             else
-                checkBoxCheckUpdates.CheckState = CheckState.Unchecked;
+                checkBoxContextMenu.CheckState = CheckState.Unchecked;
 
             // Set the style combobox dropdown accordingly.
             comboBoxWallpaperStyle.SelectedItem = Properties.Settings.Default.Style;
@@ -111,13 +112,15 @@ namespace APOD_to_Desktop
             Properties.Settings.Default.Save();
         }
 
-        private void checkBoxCheckUpdates_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxContextMenu_CheckedChanged(object sender, EventArgs e)
         {
             // Adjust settings based on the checkbox values.
-            if (checkBoxCheckUpdates.CheckState == CheckState.Checked)
-                Properties.Settings.Default.AtLogonUpdateApplication = true;
+            if (checkBoxContextMenu.CheckState == CheckState.Checked)
+                Properties.Settings.Default.ContextMenu = true;
             else
-                Properties.Settings.Default.AtLogonUpdateApplication = false;
+                Properties.Settings.Default.ContextMenu = false;
+
+            ManageContextMenu();
 
             Properties.Settings.Default.Save();
         }
@@ -230,6 +233,50 @@ namespace APOD_to_Desktop
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Create or delete options for the desktop context menu when right-clicking according to user preferences.
+        /// </summary>
+        public void ManageContextMenu()
+        {
+            /*
+            if (Properties.Settings.Default.ContextMenu)
+            {
+                try
+                {
+                    RegistryPermission perm = new RegistryPermission(RegistryPermissionAccess.Write, @"HKEY_CLASSES_ROOT\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\Shell");
+                    perm.Demand();
+                }
+                catch(System.Security.SecurityException)
+                {
+                    return;
+                }
+
+                // First create all the subkeys we will need for the menu appearance and commands.
+                Registry.ClassesRoot.CreateSubKey(@"DesktopBackground\Shell\MenuAPOD");
+                Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\Shell\APOD");
+                Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\Shell\APOD\command");
+
+                // Next setup the appearance of the context menu option.
+                RegistryKey apodKey = Registry.ClassesRoot.OpenSubKey(@"DesktopBackground\Shell\MenuAPOD", true);
+                apodKey.SetValue(@"WallpaperStyle", "0");
+                apodKey.SetValue(@"MUIVerb", "Visit APOD Website", RegistryValueKind.String);
+                apodKey.SetValue(@"SubCommands", "APOD", RegistryValueKind.String);
+                apodKey.SetValue(@"Position", "Top", RegistryValueKind.String);
+
+                // Then make the context menu option functional.
+                RegistryKey commandKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\Shell\APOD\command", true);
+                commandKey.SetValue(@"Default", "http://apod.nasa.gov/apod/astropix.html", RegistryValueKind.String);
+            }
+            else if (!Properties.Settings.Default.ContextMenu)
+            {
+                // Delete the subkeys we aren't using anymore.
+                Registry.LocalMachine.DeleteSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\Shell\APOD\command");
+                Registry.LocalMachine.DeleteSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\Shell\APOD");
+                Registry.ClassesRoot.DeleteSubKey(@"DesktopBackground\Shell\MenuAPOD");
+            }
+             */
         }
 
         private void checkForNewAPODToolStripMenuItem_Click(object sender, EventArgs e)

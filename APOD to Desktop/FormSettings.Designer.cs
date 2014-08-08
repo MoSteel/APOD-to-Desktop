@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBoxCheckUpdates = new System.Windows.Forms.CheckBox();
-            this.checkBoxGetAPOD = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBoxWallpaperStyle = new System.Windows.Forms.ComboBox();
@@ -47,6 +45,8 @@
             this.visitAPODWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBoxGetAPOD = new System.Windows.Forms.CheckBox();
+            this.checkBoxContextMenu = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -56,7 +56,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkBoxCheckUpdates);
+            this.groupBox1.Controls.Add(this.checkBoxContextMenu);
             this.groupBox1.Controls.Add(this.checkBoxGetAPOD);
             this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
@@ -64,32 +64,6 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "General Settings";
-            // 
-            // checkBoxCheckUpdates
-            // 
-            this.checkBoxCheckUpdates.AutoSize = true;
-            this.checkBoxCheckUpdates.Checked = true;
-            this.checkBoxCheckUpdates.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxCheckUpdates.Location = new System.Drawing.Point(6, 42);
-            this.checkBoxCheckUpdates.Name = "checkBoxCheckUpdates";
-            this.checkBoxCheckUpdates.Size = new System.Drawing.Size(313, 17);
-            this.checkBoxCheckUpdates.TabIndex = 7;
-            this.checkBoxCheckUpdates.Text = "Automatically check for newer versions of APOD to Desktop.";
-            this.checkBoxCheckUpdates.UseVisualStyleBackColor = true;
-            this.checkBoxCheckUpdates.CheckedChanged += new System.EventHandler(this.checkBoxCheckUpdates_CheckedChanged);
-            // 
-            // checkBoxGetAPOD
-            // 
-            this.checkBoxGetAPOD.AutoSize = true;
-            this.checkBoxGetAPOD.Checked = true;
-            this.checkBoxGetAPOD.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxGetAPOD.Location = new System.Drawing.Point(6, 19);
-            this.checkBoxGetAPOD.Name = "checkBoxGetAPOD";
-            this.checkBoxGetAPOD.Size = new System.Drawing.Size(267, 17);
-            this.checkBoxGetAPOD.TabIndex = 6;
-            this.checkBoxGetAPOD.Text = "Automatically check for new APOD image at logon.";
-            this.checkBoxGetAPOD.UseVisualStyleBackColor = true;
-            this.checkBoxGetAPOD.CheckedChanged += new System.EventHandler(this.checkBoxGetAPOD_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -244,6 +218,32 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             // 
+            // checkBoxGetAPOD
+            // 
+            this.checkBoxGetAPOD.AutoSize = true;
+            this.checkBoxGetAPOD.Checked = true;
+            this.checkBoxGetAPOD.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxGetAPOD.Location = new System.Drawing.Point(6, 19);
+            this.checkBoxGetAPOD.Name = "checkBoxGetAPOD";
+            this.checkBoxGetAPOD.Size = new System.Drawing.Size(267, 17);
+            this.checkBoxGetAPOD.TabIndex = 6;
+            this.checkBoxGetAPOD.Text = "Automatically check for new APOD image at logon.";
+            this.checkBoxGetAPOD.UseVisualStyleBackColor = true;
+            this.checkBoxGetAPOD.CheckedChanged += new System.EventHandler(this.checkBoxGetAPOD_CheckedChanged);
+            // 
+            // checkBoxContextMenu
+            // 
+            this.checkBoxContextMenu.AutoSize = true;
+            this.checkBoxContextMenu.Checked = true;
+            this.checkBoxContextMenu.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxContextMenu.Location = new System.Drawing.Point(6, 42);
+            this.checkBoxContextMenu.Name = "checkBoxContextMenu";
+            this.checkBoxContextMenu.Size = new System.Drawing.Size(291, 17);
+            this.checkBoxContextMenu.TabIndex = 7;
+            this.checkBoxContextMenu.Text = "Add \'Visit APOD Website\'  to the Desktop Context Menu";
+            this.checkBoxContextMenu.UseVisualStyleBackColor = true;
+            this.checkBoxContextMenu.CheckedChanged += new System.EventHandler(this.checkBoxContextMenu_CheckedChanged);
+            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -256,7 +256,7 @@
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "FormSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "APOD to Desktop (Version 1.0 - 2014 April 5)";
+            this.Text = "APOD to Desktop (Version 1.1 - 2014 August 6)";
             this.Load += new System.EventHandler(this.FormSettings_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -275,8 +275,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox checkBoxCheckUpdates;
-        private System.Windows.Forms.CheckBox checkBoxGetAPOD;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ComboBox comboBoxWallpaperStyle;
@@ -293,5 +291,7 @@
         private System.Windows.Forms.ToolStripMenuItem openImagesFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem visitAPODWebsiteToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBoxContextMenu;
+        private System.Windows.Forms.CheckBox checkBoxGetAPOD;
     }
 }
