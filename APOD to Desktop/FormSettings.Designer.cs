@@ -255,7 +255,7 @@
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "FormSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "APOD to Desktop (Version 1.1 - 2014 Aug 10)";
+            this.Text = "APOD to Desktop (Version 1.11 - 2014 Oct 1)";
             this.Load += new System.EventHandler(this.FormSettings_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

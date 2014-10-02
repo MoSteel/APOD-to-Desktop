@@ -37,7 +37,7 @@ namespace APOD_to_Desktop
                     if (line.Contains("<a href=\"image"))
                     {
                         char[] charsToTrim = { '"', '>' };
-                        line = line.Remove(0, 9);
+                        line = line.Remove(0, 10);
                         line = line.TrimEnd(charsToTrim);
                         line = "http://apod.nasa.gov/apod/" + line;
                         GetApodImage(line);
