@@ -8,6 +8,7 @@
     mc:Ignorable="d">
     <SplitView x:Name="MySplitView" DisplayMode="CompactOverlay"  IsPaneOpen="False" 
                CompactPaneLength="50" OpenPaneLength="150">
+        <!--The left-side hamburger buttons pane-->
         <SplitView.Pane>
             <StackPanel Background="Gray">
                 <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderThickness="0" Margin="0,0,100,0" SelectionChanged="ListView_SelectionChanged" Padding="-12,0,0,0">
@@ -36,11 +37,18 @@
                 </ListView>
             </StackPanel>
         </SplitView.Pane>
+        <!--The primary feature pane-->
         <SplitView.Content>
-            <Grid Margin="10,0,-10,0">
-                <TextBlock Text="SplitView Basic" FontSize="54" Foreground="White"
-                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Grid>
+            <StackPanel Background="#F4F4FF" BorderThickness="0">
+                <TextBlock x:Name="textBlockTitle" TextWrapping="Wrap" Text="Astronomy Picture of the Day" FontSize="32" HorizontalAlignment="Center" FontWeight="Bold"/>
+                    <ItemsControl HorizontalContentAlignment="Stretch" HorizontalAlignment="Center" Margin="0,10">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="buttonPrev" Content="&#xE76B;" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets"/>
+                            <TextBlock x:Name="textBlockDate" TextWrapping="Wrap" Text="January 1, 1970" VerticalAlignment="Center" Margin="10,0"/>
+                            <Button x:Name="buttonNext" Content="&#xE76C;" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" IsEnabled="False"/>
+                        </StackPanel>
+                    </ItemsControl>
+            </StackPanel>
         </SplitView.Content>
     </SplitView>
 
