@@ -4,6 +4,17 @@ APOD TO DESKTOP APPLICATION
 
 Requires Microsoft .NET 4.5 Framework available at:
 	http://www.microsoft.com/en-us/download/details.aspx?id=30653
+	
+This application must be run once to initialize and setup the scheduled tasks
+and program settings for the installation location where the executable is
+first run.  After the first-time settings are configured, the executable
+does not need to be manually run unless you want to change the settings
+or manually retrieve the APOD image for the day.
+
+APOD to Desktop runs on a scheduled task at user logon and attempts to retrieve
+the Astronomy Picture of the Day, then sets the current Windows Wallpaper to the
+newly retrieved APOD.  Previously applied images are saved locally and the
+amount of space used can be configured by running the executable manually.
 
 Note: APOD to Desktop has a delay built in of one minute after user logon before 
 attempting to download the APOD. This delay is to allow time for establishing any 
