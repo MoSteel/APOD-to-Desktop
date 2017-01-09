@@ -19,7 +19,8 @@ namespace APOD_to_Desktop
 
             WebClient client = new WebClient();
             client.Encoding = System.Text.Encoding.UTF8;
-            String htmlCode = client.DownloadString("http://apod.nasa.gov/apod/astropix.html");
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            String htmlCode = client.DownloadString("https://apod.nasa.gov/apod/astropix.html");
 
             // Replace all html breaks for line seperators.
             htmlCode = htmlCode.Replace("<br>", "\r\n");
@@ -39,7 +40,7 @@ namespace APOD_to_Desktop
                         char[] charsToTrim = { '"', '>' };
                         line = line.Remove(0, 9);
                         line = line.TrimEnd(charsToTrim);
-                        line = "http://apod.nasa.gov/apod/" + line;
+                        line = "https://apod.nasa.gov/apod/" + line;
                         GetApodImage(line);
                         break;
                     }

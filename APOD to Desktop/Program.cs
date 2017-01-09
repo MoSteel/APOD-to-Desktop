@@ -92,11 +92,14 @@ namespace APOD_to_Desktop
         {
             try
             {
-                using (var client = new WebClient())
-                using (var stream = client.OpenRead("http://apod.nasa.gov/apod/astropix.html"))
+            using (var client = new WebClient())
+            {
+                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                using (var stream = client.OpenRead("https://apod.nasa.gov/apod/astropix.html"))
                 {
                     return true;
                 }
+            }
             }
             catch
             {
